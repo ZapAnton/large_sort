@@ -20,8 +20,6 @@ def split_by_many_files(file):
 
                 line_count += 1
         else:
-            print('Stoped wirintg to file', file_count)
-
             line_count = 0
 
             file_count += 1
@@ -39,7 +37,16 @@ def split_by_many_files(file):
 
 
 def sort_small_files(file_count: int):
-    pass
+    for file_number in range(1, file_count):
+        sorted_lines = None
+
+        with open('small_files/file_{}.txt'.format(file_number), 'r') as file:
+            lines = file.readlines()
+
+            sorted_lines = sorted(lines, key=lambda line: line[:51])
+
+        with open('small_files/file_{}.txt'.format(file_number), 'w') as file:
+            file.write('\n'.join(sorted_lines))
 
 
 if __name__ == '__main__':
