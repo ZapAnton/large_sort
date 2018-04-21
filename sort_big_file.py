@@ -57,7 +57,7 @@ def sort_small_files(file_count: int):
 def number_of_reached_eof(first_lines: list):
     eof_count = 0
 
-    for i, line in enumerate(first_lines):
+    for line in first_lines:
         if not line:
             eof_count += 1
 
