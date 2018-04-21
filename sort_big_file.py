@@ -1,7 +1,16 @@
+import os
+
+
 def split_by_many_files(file):
     small_file_line_count = 50
 
     small_file_name = 'small_files/file_{}.txt'
+
+    if not os.path.exists('small_files'):
+        os.makedirs('small_files')
+    else:
+        for temp_file in os.scandir('small_files'):
+            os.unlink(temp_file.path)
 
     line = file.readline()
 
