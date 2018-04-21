@@ -2,3 +2,4 @@ big_file.txt
 big_file_sorted.txt
 *.swp
 small_files/
+target/
