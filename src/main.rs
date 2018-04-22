@@ -48,6 +48,37 @@ fn split_by_small_files(big_file_name: &str) -> i32 {
     temp_files_count
 }
 
+fn sort_temp_files(temp_files_count: i32) {
+    for file_number in 1..(temp_files_count + 1) {
+        let temp_file_name = format!("small_files/file_{}.txt", file_number);
+
+        let temp_file = File::open(&temp_file_name).expect(&format!(
+            "Cannot read unsorted temp file {}!",
+            &temp_file_name
+        ));
+
+        let mut temp_file_lines = BufReader::new(temp_file)
+            .lines()
+            .map(|x| x.expect("Error unwraping string line!"))
+            .collect::<Vec<String>>();
+
+        temp_file_lines.sort_by(|line1, line2| line1.cmp(&line2));
+
+        let mut temp_file = File::create(&temp_file_name).expect(&format!(
+            "Cannot write sorted lines to file {}!",
+            &temp_file_name
+        ));
+
+        for line in temp_file_lines {
+            temp_file.write(line.as_bytes()).unwrap();
+
+            temp_file.write("\n".as_bytes()).unwrap();
+        }
+    }
+}
+
 fn main() {
-    let _temp_files_count = split_by_small_files("big_file.txt");
+    let temp_files_count = split_by_small_files("big_file.txt");
+
+    sort_temp_files(temp_files_count);
 }
