@@ -77,8 +77,24 @@ fn sort_temp_files(temp_files_count: i32) {
     }
 }
 
+fn merge_temp_files(temp_files_count: i32) {
+    let mut temp_file_lines = Vec::with_capacity(temp_files_count as usize);
+
+    for temp_file_num in 1..(temp_files_count + 1) {
+        let temp_file = File::open(format!("small_files/file_{}.txt", temp_file_num)).expect(
+            &format!("Could not read small_files/file_{}.txt", temp_file_num),
+        );
+
+        temp_file_lines.push(BufReader::new(temp_file).lines());
+    }
+
+    let mut first_lines: Vec<String> = Vec::with_capacity(temp_files_count as usize);
+}
+
 fn main() {
     let temp_files_count = split_by_small_files("big_file.txt");
 
     sort_temp_files(temp_files_count);
+
+    merge_temp_files(temp_files_count);
 }
