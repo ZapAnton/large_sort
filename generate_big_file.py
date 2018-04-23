@@ -5,7 +5,7 @@ import random
 if __name__ == '__main__':
     letters = string.ascii_letters
 
-    lines_count = 1000
+    lines_count = 500000
 
     line_width = 500
 
